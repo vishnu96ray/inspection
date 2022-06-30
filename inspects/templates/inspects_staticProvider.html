@@ -1,0 +1,49 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'inspects/images/logo_rkvy.jpeg' %}">
+    <link rel="stylesheet" href="{% static 'inspects/css/bootstrap.css' %}">
+    <script src="{% static 'inspects/js/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'inspects/js/popper.js' %}"></script>
+    <script src="{% static 'inspects/js/bootstrap.js' %}"></script>
+    <script src="{% static 'inspects/js/fontawesomev5.15.js' %}"></script>
+
+    <script type="text/javascript">
+        if(self===top){
+          var antiClickjack = document.getElementById("antiClickjack");
+          antiClickjack.parentNode.removeChild(antiClickjack);
+        }
+        else{
+          top.location= self.location;
+        }
+      </script>
+
+
+
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="{% static 'inspects/DataTables/datatables.css' %}" />
+
+    <script type="text/javascript" src="{% static 'inspects/DataTables/datatables.js' %}"></script>
+
+    <!-- jquery-ui all -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inspects/jquery-ui/jquery-ui.css' %}" />
+
+    <script type="text/javascript" src="{% static 'inspects/jquery-ui/jquery-ui.js' %}"></script>
+
+    <!-- select2 -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inspects/select2/select2.css' %}" />
+
+    <script type="text/javascript" src="{% static 'inspects/select2/select2.js' %}"></script>
+
+
+    <!-- timepicker -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inspects/timepicker/css/timepicker.css' %}" />
+
+    
+</head>

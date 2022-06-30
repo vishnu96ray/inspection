@@ -1,0 +1,449 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+{% load static %}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<script src="{% static '/js/popper.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/bootstrap.min.css' %}">
+
+<script src="{% static '/js/jquery-3.3.1.js' %}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<br>
+<style>
+    
+        input[type=text],
+        select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: block;
+                color: rgb(38, 38, 38);
+                border-radius: 4px;
+                box-sizing: border-box;
+        }
+
+        input[type=submit] {
+                width: 20%;
+                text-align: center;
+                background-color: #4CAF50;
+                color: rgb(15, 12, 12);
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+                background-color: #45a049;
+                text-align: center;
+        }
+
+        input[type=button] {
+                width: 10%;
+                text-align: center;
+                background-color: #4CAF50;
+                color: white;
+                padding: 6px 6px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+        }
+
+        input[type=button]:hover {
+                background-color: #45a049;
+                text-align: center;
+        }
+  #viewbtn {
+    margin-left: 1200px;
+    margin-right: 10px;
+  }
+  
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+         
+</style>
+
+  <!-- <h3 align="center" ><u><b>Inspection Type Checklist </b></u></h3>
+  <button type="button" id="back" name="back" value="Back" class="btn btn-success btn-md "
+                 style="float: right;margin-right: 15em;">Back</button> -->
+
+<!-- </div> -->
+
+<br>
+
+
+<form action="/search_createchecklist/" method="post" >
+
+  {% csrf_token %}
+  <br>
+  <br>
+  
+    <div class="row" style="margin-left: 20em;">
+
+      <div  class="col-sm-3 form-group" >
+        <label for="checklist_title">Checklist Title <span style="color:red;font-weight:bold">*</span></label>
+        <input type="text" style="height: 2.5em;width:16em;" id="checklist_title" name="checklist_title" 
+        class="form-control" placeholder="Enter title" value="{{ inspection_Checklist.checklist_title }}">  
+      </div>
+
+    <div class="col-sm-3 form-group" style="margin-left:5em ;">
+        <label for="inspection_type" >Inspection Type<span style="color:red;font-weight:bold">*</span></b></label>
+        <select class="form-control" id="inspection_type" name="inspection_type"
+            required>
+            <option value="All" selected>All</option>
+                {% for d in INSPECTION_TYPE %}
+                <option value="{{d.1}}" {% ifequal d.1 inspection_Checklist.inspection_type %} selected="selected"
+                 {% endifequal %}>{{d.1}}</option>
+                {% endfor %}
+              
+        </select>
+    </div>
+      
+
+        
+
+        <div  class="col-sm-2s form-group" >
+          <label ></label>
+          
+          <!-- <button type="submit"  class="btn btn-success btn-sm " style="margin-top:2.7em;height:3em;width:6em;">Submit</button> -->
+      </div>
+           <br>          
+        <div>               
+  
+      
+      </div> 
+  </div>   <br><br>
+
+          <div class="col-md-12"> 
+          <table id="table1" class="table table-striped table-bordered center" style="width:90%; margin-left: 3em;">
+
+            <thead >
+              <b style="margin-left: 2em;">Add Activity </b><br><br>
+
+                <tr>
+                 <th style= "text-align: left; border-top: 1px solid black; border-bottom: 1px solid black;width: 10%;">S.No.</th>
+                 <th style= "text-align: left; border-top: 1px solid black; border-bottom: 1px solid black;width: 100%;">Point To Be Checked</th>
+                 
+                
+               </tr>
+          
+            </thead>
+            {%if ass != ' None' %}
+            <tbody  id="addworkmech">
+            {% for i in ass %}
+            
+          <tr>
+            <td aria-readonly="true" readonly style="text-align: center; width: 10px; font-family:verdana;">{{forloop.counter}}</td>
+             <!-- <td ><textarea readonly aria-readonly="true" style="width:100%; height:100%; font-family:verdana; ">{{ j }}</textarea></td> -->
+             <td> 
+               
+               <div class="autocomplete">
+                
+                
+                 <textarea class="form-control" maxlength="250" id="activities"  name="activities_name" value="{{ i.activities }}" style="font-family:verdana;width:900px;" >{{ i.activities }}</textarea>
+                 <!-- <input aria-readonly="true" readonly style="font-family:verdana;white-space:nowrap;;" type="text" id="work1{{forloop.counter}}"  name = "work1{{forloop.counter}}" class = "form-control" autocomplete = "off" style="width:900px;"  value="{{ j.activity }}" > -->
+                
+               </div>    
+             </td>
+           </tr>
+          {%endfor%}
+          {% endif %}
+        </tbody>
+            
+      </table>
+      </div>
+      
+         
+      <div>
+      <a style="margin-left: 3em;" name="addmech" id="addmech" class="btn btn-primary btn-md">Add</a>
+      <a  class="btn btn-primary btn-md" id="deletemech" >Delete</a> 
+     
+    </div>
+
+    <button type="submit"  class="btn btn-success btn-md " name="draft" value="Draft" style=" margin-left: 710px;">Save as Draft</button>
+   
+    <button type="submit" id="btn_save_ajax" value="Finalized" name="draft" class="btn btn-success btn-md " >Submit</button>
+    
+    <br>
+    <br>
+</form>
+    
+  
+     
+      <script>
+        function backredirect(){
+          document.location.href ="{% url 'created_checklist' %}"
+        }
+
+        
+      </script>   
+      <script>
+        $(document).ready(function(){
+                         
+                         $("#add-emprow1").click(function (e) {
+                          
+                           var table = document.getElementById("addnomoffc");
+                           e.preventDefault();
+                           var row = table.insertRow();
+        
+                         
+                            var rowCount = $('#addnomoffc tr').length;
+                            j1=rowCount;
+        
+                          //  j1 = j1 + 1;
+                           var work1 = 'work1' + String(j1);
+                          
+                 
+                           var cell1 = row.insertCell(0);
+                           var cell2 = row.insertCell(1);
+                         
+        
+                          cell1.innerHTML =
+                          '<td style="width:5px;""><div style="text-align: center; width:5px font-family:verdana;">'+(j1)+'</div></td>';
+                       
+                        cell2.innerHTML =
+                          '<td><select id="empl0" name="empl0" style=" padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;box-sizing: border-ox;" autocomplete="off" type="text" class="form-control" placeholder="ENTER EMP NO" maxlength="15"><option disabled hidden selected value="">--Select--</option> <option  value="ABC">ABC</option> <option  value="XYZ">XYZ</option></select></div></td>'; 
+                     
+                        //   cell3.innerHTML =
+                        //   '<td><div class="autocomplete1"><textarea maxlength="250" id=' + work1 + ' name=' + work1 +
+                        //   ' autocomplete1 = "off"  class="form-control" required /></textarea></div></td>'; 
+                          cell4.innerHTML =
+                          '<td><div class="autocomplete1" id=' + work1 + ' name="activities" value="{{ass.activities }}" autocomplete1 = "off"  class="form-control" required>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Mark Designated Officers</button></div></td>'; 
+                          // cell3.innerHTML =
+                          // '<td><div class="autocomplete1"><label for="myfile">Upload a file:</label><input type="file" id="myfile" name="myfile"></div></td>'; 
+                          
+                         });
+         
+                         
+                     });
+        
+        
+                     $('#delete_row0').click(function (e) {
+                             e.preventDefault();
+                                  var rowCount = $('#addnomoffc tr').length;
+          
+                                  j1=rowCount;                    
+                             if (j1 > 0) {
+         
+                              document.getElementById("addnomoffc").deleteRow(-1);
+                              j1--;
+                           
+                             }
+         
+                           }); 
+        
+         
+          </script>
+          <script>
+            $(document).ready(function(){
+                             
+                             $("#addmech").click(function (e) {
+                              
+                               var table = document.getElementById("addworkmech");
+                               e.preventDefault();
+                               var row = table.insertRow();
+            
+                             
+                                var rowCount = $('#addworkmech tr').length;
+                                j1=rowCount;
+            
+                              //  j1 = j1 + 1;
+                               var work1 = 'work1' + String(j1);
+                              
+                     
+                               var cell1 = row.insertCell(0);
+                               var cell2 = row.insertCell(1);
+                              //  var cell3 = row.insertCell(2);
+                               var cell4 = row.insertCell(2);
+            
+                              cell1.innerHTML =
+                              '<td style="width:5px;""><div style="text-align: center; width:5px font-family:verdana;">'+(j1)+'</div></td>';
+                           
+                            cell2.innerHTML =
+                              '<td><div class="autocomplete1"><textarea maxlength="350" id=' + work1 + ' name="activities"   autocomplete1 = "off"  class="form-control" required /></textarea></div></td>'; 
+                         
+                            //   cell3.innerHTML =
+                            //   '<td><div class="autocomplete1"><textarea maxlength="250" id=' + work1 + ' name=' + work1 +
+                            //   ' autocomplete1 = "off"  class="form-control" required /></textarea></div></td>'; 
+                            //  cell4.innerHTML =
+                            //  '<td><div class="autocomplete1">  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Mark Designated Officers</button></div></td>'; 
+                              // cell3.innerHTML =
+                              // '<td><div class="autocomplete1"><label for="myfile">Upload a file:</label><input type="file" id="myfile" name="myfile"></div></td>'; 
+                              
+                             });
+             
+                             
+                         });
+            
+            
+                         $('#deletemech').click(function (e) {
+                                 e.preventDefault();
+                                      var rowCount = $('#addworkmech tr').length;
+              
+                                      j1=rowCount;                    
+                                 if (j1 > 0) {
+             
+                                  document.getElementById("addworkmech").deleteRow(-1);
+                                  j1--;
+                               
+                                 }
+             
+                               }); 
+            
+             
+              </script>
+
+<script>
+  /*
+    function Savedraft_data(btnid)
+      {
+        
+        
+        var zone=$("#zone").val();
+        var department=$("#department").val();
+        var btnvalue = $(btnid).attr('id');
+        var location=$("#location").val();
+       
+        
+        
+    
+    
+        var part_array1= [];
+        var _table1 = document.getElementById('table1');
+        var norows1 = _table1.tBodies[0].rows.length;
+        //  alert("no_rows in add activity table"+norows)
+        for(var i=1;i<norows1+1;i++)
+        {
+          var val = document.getElementById(`work1${i}`)
+          var works1=$("#work1"+String(i)).val();
+          if(works1 == ""){
+          val.focus();
+          return false;
+         }
+          else{
+          part_array1.push(works1);
+          }
+    
+        }
+        
+        
+        var final_partinspected1=JSON.stringify(part_array1)
+       
+    
+        var data1 = {
+          norows1,
+          
+        _partinspected1: final_partinspected1,
+        
+       
+        _zone:zone,
+        department_:department,
+        _location:location,
+        _btnvalue:btnvalue,
+        
+      };
+      
+    
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'save_draft_data' %}",
+        dataType: 'json',
+        data: data1,
+        success: function (response) {
+    
+        alert("Record saved as draft");
+        
+        idd=response.draftID;
+       
+        window.location.href = "/created_checklist/createCheckListForm/" + idd  + "/";
+          
+          }
+      });
+     
+      
+    
+    
+    }
+      */ 
+    </script>
+    <script>
+    
+    function Action_cc() { 
+      //alert("hhhhhhhhhhhhhhhhhh")
+        
+      }
+      </script>
+    
+      <!-- <script>
+        $("#btn_save_ajax").click(function(){
+          console.log("save Button clicked")
+          let checklist_title=$("#checklist_title").val();
+          let inspection_type=$("#inspection_type").val();
+          let activity=$("#activity").val();
+          if (checklist_title==" "){
+          let inspection_type=$("#inspection_type").val();
+            mydata={checklist_title:checklist_title, inspection_type:inspection_type, activity:activity};
+            $.ajax({
+              url:"#",
+              method:"POST",
+              data:mydata,
+              success:function(data){
+                console.log(data);
+              }
+            })
+          }
+
+
+        })
+      </script> -->
+  
+      <script>
+        $(document).ready(function() {
+          $('#inspection_type').select2();
+        });
+      </script>
+
+{% endblock %}  

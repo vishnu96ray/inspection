@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Sign-Up Form
+        </title>
+        <link rel="stylesheet" href="table_style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </head>
+    <body>
+            <div class="container py-5 h-100">
+              <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                  <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                      <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                      <form method="POST" >
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col">
+          
+                            <div class="form-outline">
+                              <label class="form-label" for="firstName"> First Name</label>
+                              <input type="text" id="firstName" class="form-control" name="firstName" required/>
+                            </div>
+          
+                          </div>
+
+                          <div class="col">
+          
+                            <div class="form-outline">
+                              <label class="form-label" for="middleName"> Middle Name</label>
+                              <input type="text" id="middleName" class="form-control" name="middleName" />
+                            </div>
+          
+                          </div>
+
+                          <div class="col">
+          
+                            <div class="form-outline">
+                              <label class="form-label" for="lastName">Last Name</label>
+                              <input type="text" id="lastName" class="form-control" name="lastName" required/>
+                            </div>
+          
+                          </div>
+                        </div>
+          
+                        <div class="row">
+                          <div class="col">
+          
+                            <div class="form-outline">
+                               <label for="official_emailID" class="form-label">Official Email</label>
+                               <input type="text" class="form-control" id="official_emailID" name="official_emailID" 
+                               onchange="trimTextField(this);" required/>
+                            </div>
+          
+                          </div>
+                          <div class="col">
+          
+                            <div class="form-outline">
+                              <label class="form-label" for="official_mobileNo."> Official Mobile No.</label>
+                              <input class="form-control" type="text" id="official_mobileNo." name="official_mobileNo"
+                              onchange="limitNumericInput(this,digit=10,exactly=true);" min="0" placeholder="Mobile No" onkeypress="return isNumber(event)" maxlength="10" required/>                             
+                            </div>
+                            </div>
+          
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+            
+                              <div class="form-outline">
+                                 <label for="personal_emailID" class="form-label">Personal Email</label>
+                                 <input type="text" class="form-control" id="personal_emailID" name="personal_emailID"  
+                                 onchange="trimTextField(this);" />
+                              </div>
+            
+                            </div>
+                            <div class="col">
+            
+                              <div class="form-outline">
+                                <label class="form-label" for="personal_mobileNo."> Personal Mobile No.</label>
+                                <input class="form-control" type="text" id="personal_mobileNo." name="personal_mobileNo" 
+                                onchange="limitNumericInput(this,digit=10,exactly=true);" min="0" placeholder="Mobile No" onkeypress="return isNumber(event)" maxlength="10" />                             
+                              </div>
+                              </div>
+            
+                          </div>
+
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label for="faxNo." class="form-label"> Fax No. </label>
+                                    <input type="text" class="form-control" id="faxNo." name="faxNo" />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label for="aadhaarNo" class="form-label"> Aadhaar No.</label>
+                                    <input type="text" class="form-control" id="aadhaarNo" name="aadhaarNo" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="foem-outline">
+                                    <label for="password" class="form-label"> Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required />
+                                    <input type="checkbox" onclick="showpassword()" onchange="trimTextField(this);">Show Password
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="foem-outline">
+                                    <label for="confirm_password" class="form-label"> Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirm_password" onclick="confirmpassword()" onfocusout="myFunction()" required/>
+                                </div>
+                            </div>
+                        </div>
+
+                      <div class="buttons mt-3">
+                        <button type="submit" class="btn btn-success btn-md"> Submit </button>
+                        <button type="reset" class="btn btn-warning"> Reset </button>
+                        <span style="margin-left:2%;">Already have an account? <a href="{% url 'loginUser' %}">Login
+                          here</a></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+        <div class="row" id="password-msg" style="display: none;color:red">
+          <div class="col-sm">
+              <ol>
+                  <li>A password between 8 to 15 characters.</li>
+                  <li>Atleast one lowercase letter and one uppercase letter</li>
+                  <li>One numeric digit, and one special character</li>
+              </ol>
+
+
+          </div>
+      </div>
+    </body>
+    <script>
+       
+      function isNumber(evt) {
+          evt = (evt) ? evt : window.event;
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+              return false;
+          }
+          return true;
+      }
+      function getCurrDate() {
+          var dateArr = String('{{currDate}}').split('-');
+          return new Date(parseInt(dateArr[0]), parseInt(dateArr[1] - 1), parseInt(dateArr[2]));
+      }
+
+
+      const password = document.querySelector('#password');
+      const confirmpassword = document.querySelector('#confirmPassword');
+
+      function seePassword(el) {
+          // toggle the type attribute
+          const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+          password.setAttribute('type', type);
+          confirmpassword.setAttribute('type', type);
+          // toggle the eye slash icon
+          const clas = el.classList.contains("fa-eye");
+          if (clas) {
+              el.classList.add("fa-eye-slash")
+              el.classList.remove("fa-eye");
+          } else {
+              el.classList.add("fa-eye");
+              el.classList.remove("fa-eye-slash")
+
+          }
+
+      }
+
+
+      function validatePassword(pass) {
+          var reg = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/);
+
+          return reg.test(pass);
+      }
+
+      function limitNumericInput(el, digit, exactly = false) {
+          let len = String(el.value).trim().length;
+
+          if (exactly) {
+              if (len != digit) {
+                  alert(`You Can enter only ${digit} digits`)
+                  el.value = String(el.value).substr(0, digit);
+              }
+          } else {
+              if (len > digit) {
+                  alert(`You Can enter maximum of ${digit} digits`)
+                  el.value = '';
+              }
+          }
+
+          return;
+      }
+
+      function validateForm() {
+          var _mobile = document.getElementById('mobile_no');
+          var _mobile_no_error = document.getElementById('mobile_no_error');
+          if (String(_mobile.value).length != 10) {
+              _mobile.focus();
+              _mobile_no_error.innerText = "Please enter valid 10 digit mobile no.";
+              return false;
+          } else {
+              _mobile_no_error.innerText = "";
+          }
+          var _dob = document.getElementById('dob');
+          var _dob_error = document.getElementById('dob_error');
+          if (_dob.value == "") {
+              _dob.focus();
+              _dob_error.innerText = "Select your date of birth.";
+              return false;
+
+          } else {
+              _dob_error.innerText = "";
+
+          }
+          var _aadhaar = document.getElementById('aadhaar_no');
+          var _aadhaar_no_error = document.getElementById('aadhaar_no_error');
+          if (String(_aadhaar.value).length != 12 && String(_aadhaar.value).length != 0) {
+              _aadhaar.focus();
+              _aadhaar_no_error.innerText = "Please enter valid 12 digit Aadhaar No.";
+              return false;
+
+          } else {
+              _aadhaar_no_error.innerText = "";
+
+          }
+          var _confirmPassword = document.getElementById("confirmPassword");
+          var _password = document.getElementById('password');
+          var _confirmPassword_error = document.getElementById('confirmPassword_error');
+          document.getElementById("password-msg").style.display = 'none';
+          if (_confirmPassword.value != _password.value) {
+              _confirmPassword.focus();
+              _confirmPassword_error.innerText = "Confirm Password not matches.";
+              return false;
+
+          } else {
+
+              _confirmPassword_error.innerText = "";
+
+          }
+
+          if (!validatePassword(_password.value)) {
+              document.getElementById("password-msg").style.display = '';
+              return false;
+          }
+          return true;
+      }
+
+      function trimTextField(el) {
+          el.value = String(el.value).trim();
+      }
+      $(document).ready(function () {
+          var currDate = getCurrDate();
+          var year = currDate.getFullYear();
+          //changes Himanshi 13-08-2021
+
+          var mindate = new Date(year - 35, 0, 1);
+          //changes Himanshi 13-08-2021 end
+
+          // age range is 18 years to 35 years
+          //changes Himanshi 13-08-2021
+          $('#dob').datepicker({
+              dateFormat: "dd-mm-yy",
+              yearRange: `${year-35}:${year-18}`,
+              changeMonth: true,
+              changeYear: true,
+
+          });
+          //changes Himanshi 13-08-2021 end
+          // $('#dob').datepicker('setDate', mindate);
+      });
+  </script>
+
+    <script>
+
+      function myFunction() {
+          var x = document.getElementById("password").value;
+          var y = document.getElementById("confirm_password").value;
+          if(x!=y)
+          {
+            alert('password and confirm password should be same');
+            document.getElementById("confirm_password").value='';
+          }
+      }
+
+
+          function showpassword() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+
+    function confirmpassword() {
+      var x = document.getElementById("password").value;
+      if(x=='')
+      {
+        alert('fill the password first');
+      }
+    }
+
+
+    </script>
+</html>

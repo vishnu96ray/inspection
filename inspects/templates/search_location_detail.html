@@ -1,0 +1,173 @@
+{% block content %}
+
+{% load static %}
+<!-- <script type="text/javascript"  src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">  -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<script src="{% static '/js/popper.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/bootstrap.min.css' %}">
+
+<script src="{% static '/js/jquery-3.3.1.js' %}"></script>
+<script src="{% static '/DataTables/datatables.min.js' %}"></script>
+<script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static '/DataTables/datatables.min.css' %}" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{% static '/js/select2.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/select2.min.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="{% static '/js/select2.min.js' %}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'js/timepicker.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+<link src="https://code.jquery.com/jquery-3.3.1.min.js">
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+
+<br>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+{% for key,values in obj.items %}  
+<h3 align="center" style="font-size: 15px;" ><b>Inspections Report of 
+    <td>{{ values.location }}, </td> 
+    <td>{{ values.zone }}/ </td> 
+    <td>{{ values.division }}/ </td> 
+    <td>{{ values.inspected_on }} </td> 
+</b></h3>
+{% endfor %}
+               
+
+    <!-- /.box-body -->
+
+    
+ 
+<br>
+{%if lent %}
+    <table class='b' border="1" align="center">
+        <thead >
+          <tr >  
+                <th class='b'><p style="font-size: 15px; padding: 10px;">S.N.</p></th>
+                <th class='b'><p style="font-size: 15px;padding: 10px;" >Item </p></th> 
+                <th class='b'><p style="font-size: 15px; padding: 10px;">Action by </p></th>
+                  
+                
+            </tr>
+        </thead>
+        
+        <tbody id="row">
+            
+            {% for key,values in obj.items %}  
+            <tr style="width:100%;">
+                <td align="center" class='c' style="width: 10%;"><p style="font-size: 15px; padding: 50px;">{{key}} </p></td>
+                <td align="center" class='c' style="width: 75%;"><p style="font-size: 15px; padding: 50px;">{{values.observation}} {{ values.inspected_on }}</td>
+                <td align="center" class='c' style="width: 15%;"><p style="font-size: 15px; padding: 50px;">{{values.inspection_officer }}</p></td>
+                
+                
+                
+            </tr>
+            {% endfor %}
+            
+        </tbody>   
+    </table>
+    {%else%}
+    <table class='b' border="1" align="center" id="gi10form">
+        <thead>
+            <tr >  
+                <th class='b'><p style="font-size: 15px; padding: 10px;">S.N.</p></th>
+                <th class='b'><p style="font-size: 15px;padding: 10px;" >Item </p></th> 
+                <th class='b'><p style="font-size: 15px; padding: 10px;">Action by </p></th>
+                  
+                
+            </tr>
+        </thead>
+        <tr >
+            <td class="b" colspan="5"><h1>No Data Available.</h1></td>
+        </tr>
+         
+    </table>
+
+    {% endif %}
+
+    <br>
+    <br>
+    <br>
+    
+    <br>
+<table>
+
+    <tr>
+        {% for key,values in obj.items %}  
+        <td> 
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h3 align="left" style="font-size: 15px;" ><b>Note No
+                {{ values.inspection_note_no }} 
+             </b></h3>
+              <h3 align="left" style="font-size: 15px;" ><b>Copy To:</b></h3>
+        
+                <ol type="1">
+                    <li style="font-size: 15px;">{{  values.inspection_note_no }} </li>
+                    <li style="font-size: 15px;">{{ values.inspected_on }} </li>
+        
+                </ol>
+
+        </td>
+
+        <td>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </td>
+
+        <td>
+            <h3 align="left" style="font-size: 15px;" >( {{ values.inspection_officer }} )
+               
+             </h3>
+
+              <h3 align="left" style="font-size: 15px;" ><b>{{values.inspection_officer}}</b></h3>
+                <br>
+                <h3 align="left" style="font-size: 15px;" ><b>{{values.location}} Dated {{values.inspected_on}}</b></h3>
+             </td>
+        {% endfor%}
+
+    </tr>
+</table>
+
+
+
+
+
+{% endblock %}  

@@ -1,0 +1,523 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+{% load static %}
+<!-- <script type="text/javascript"  src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">  -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+ <!-- <script src="{% static '/js/jquery.min.js' %}"></script>  -->
+<script src="{% static '/js/popper.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/bootstrap.min.css' %}">
+
+ <!-- <script src="{% static '/js/jquery-3.3.1.js' %}"></script> -->
+<!-- <script src="{% static '/DataTables/datatables.min.js' %}"></script> -->
+<!-- <script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static '/DataTables/datatables.min.css' %}" /> -->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{% static '/js/select2.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/select2.min.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="{% static '/js/select2.min.js' %}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'js/timepicker.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+ 
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  
+  <br>
+  {% comment %} <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> {% endcomment %}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <style>
+    
+        input[type=text],
+        select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: block;
+                color: rgb(38, 38, 38);
+                border-radius: 4px;
+                box-sizing: border-box;
+        }
+
+        input[type=submit] {
+                width: 20%;
+                text-align: center;
+                background-color: #4CAF50;
+                color: rgb(15, 12, 12);
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+                background-color: #45a049;
+                text-align: center;
+        }
+
+        input[type=button] {
+                width: 10%;
+                text-align: center;
+                background-color: #4CAF50;
+                color: white;
+                padding: 6px 6px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+        }
+
+        input[type=button]:hover {
+                background-color: #45a049;
+                text-align: center;
+        }
+  #viewbtn {
+    margin-left: 1200px;
+    margin-right: 10px;
+  }
+  
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+         
+</style>
+
+<h3 align="center" ><u><b>Search Inspections Report </b></u></h3>
+
+
+<form action="{% url 'search_location' %}" method="POST" id='indexForm' style="background-color:#ccc"> 
+  {% csrf_token %}
+  
+    <div class="row" style="margin-left: 15em; margin-right: 15em;">
+
+      <div class="col-sm-4 form-group">
+        <label for="rly_id" >Railways<span style="color:red;font-weight:bold">*</span></b></label>
+        <select class="form-control" id="location_code" name="location_code" class="custom-select">
+            <option value="All" selected>All</option>
+            {% for z in zone %}
+            <option value="{{z}}">{{z}}</option>
+            {% endfor %}
+
+        </select>
+      </div>
+      
+
+
+      <div class="col-sm-4 form-group">
+            <label for="div_id">Division<span style="color:red;font-weight:bold">*</span></label>
+            <select class="form-control" id="location_type" name="location_type" class="custom-select" style="max-width:100%;"
+                     required>
+        
+                    <option value="All" selected>All</option>
+                    {% comment %} {% for d in division %}
+                    <option value="{{d}}">{{d}}</option>
+                    {% endfor %} {% endcomment %}
+        
+            </select>
+            
+      </div>
+
+      <div class="col-sm-4 form-group">
+        <label for="department_name">Department</label>
+        <select class="form-control" id="dept" name="dept" class="custom-select" style="max-width:100%;"
+                 required>
+    
+                <option value="All" selected>All</option>
+                {% for d in dept %}
+                <option value="{{d}}">{{d}}</option>
+                {% endfor %}
+    
+        </select>
+        
+      </div>
+
+
+    </div>
+
+    <div class="row" style="margin-left: 15em; margin-right: 15em;">
+
+        <div class="col-sm-4 form-group">
+          <label for="designation" >Designation<span style="color:red;font-weight:bold">*</span></b></label>
+          <select class="form-control" id="designation" name="designation" class="custom-select"
+               required>
+              <option value="All" selected>All</option>
+              {% comment %} {% for d in desi %}
+              <option value="{{d}}">{{d}}</option>
+              {% endfor %} {% endcomment %}
+  
+          </select>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="Zone" >Date Range</label>
+
+          <div id="inspected_on" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span></span> <i class="fa fa-caret-down"></i>
+
+          </div>
+         </div>
+         
+
+
+        <div class="col-sm-4 form-group">
+          <label for="status" >Status </b></label>
+          <select class="form-control" name="status"  id="status" class="custom-select">
+              <option value="all" >All</option>
+              <option value="pending" >Pending</option>
+              <option value="partial" >Partial</option>
+              <option value="complete">Complete</option>
+          </select>
+        </div>
+    </div>
+    
+
+      <div class="row" style="margin-left: 10em; margin-right: 10em;">
+        <div  class="col-sm-2s form-group pull-right" >
+          <button type="button" onclick="myFunction()" style="margin-top:2.7em;height:3em;width:6em;" 
+          class="btn btn-success btn-sm pull-right">Submit</button>
+        </div>
+      </div>
+
+</form>
+<br>
+
+
+<form action="{% url 'keyword_location_search' %}"  method="POST" id='indexForm' style="background-color:#ccc">
+  {% csrf_token %}
+  
+
+  <div class="box-body no-padding" id ='search_text' style="margin-left: 15em; margin-right: 15em; display:none;">
+
+  
+ 
+
+      <div class="col-sm-6 form-group">
+        <label for="location_description" >Keyword Search</b></label>
+        <input class="form-control" id="query" name="query"
+        class="custom-select">
+          
+    </div>
+
+        <div  class="col-sm-2s form-group pull-right" >
+          <button type="submit"  style="margin-top:2.7em;height:3em;width:6em;" 
+          class="btn btn-success btn-sm pull-right">Submit</button>
+        </div>
+    
+
+  </div>
+
+
+
+  <div class="box-body no-padding" id ='search_text' style="margin-left: 15em; margin-right: 15em;">
+    <div class="col-sm-6">
+    <input type="checkbox" id="check"> You want Keyword Search</legend>
+  
+    </div>
+    
+  </div>
+
+</form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+    <!-- <form method='POST'  class="form-inline my-2 my-log-0">
+      {% csrf_token %}
+      <div class="row" style="margin-left: 15em; margin-right: 15em;">
+
+        <div class="col-sm-6 form-group">
+          <label for="location_description" >Keyword Search</b></label>
+          <input class="form-control" id="query" name="query"
+           class="custom-select">
+             
+      </div>
+      <div class="col-sm-6 form-group">
+        <label for="location_description" >Search By Person</b></label>
+        <input class="form-control" id="location_description" name="location1" class="custom-select"
+       value='{{q}}' >
+
+           
+      </div>
+
+      <div class="row" style="margin-left: 10em; margin-right: 10em;">
+        <div  class="col-sm-2s form-group pull-right" >
+          <button type="submit" value="Submit" style="margin-top:2.7em;height:3em;width:6em;" 
+          class="btn btn-success btn-sm pull-right">Submit</button>
+        </div>
+      </div>
+  
+
+  
+       
+ 
+        
+    </div>
+
+      </form> -->
+
+
+    <!-- <div class="row" style="margin-left: 20em; margin-right: 20em;">
+        <div  class="col-sm-2s form-group pull-right" >
+          <label ></label>
+          <button  type="submit"  name="zone_loc_submit"  style="margin-top:2.7em;height:3em;width:6em;" class="btn btn-success btn-sm pull-right" >Submit</button>
+        </div>
+     </div> -->
+
+    
+      
+
+
+<form action="{% url 'search_location' %}" method="POST" id='indexForm' style="background-color:#ccc"> 
+    {% csrf_token %}
+  <div class="box-body no-padding" style="margin-left: 10em; margin-right: 10em;">
+    <table class="table" id="tableid" name="tableid">
+        <thead>
+          
+        <tr>
+            <th>Sr No.</th>
+            <th>Inspection Note No.</th>
+            <th>Date.</th>
+            <th>Designation.</th>
+            <th>Division.</th>
+            <th>Railways.</th>
+            <th>View</i></th>                            
+        </tr>
+        </thead>
+
+        <tbody>
+
+        
+          
+
+        </tbody>
+   
+  </table>
+
+    <!-- /.box-body -->
+
+  </div>
+
+</form>
+   
+
+
+<script>
+
+
+
+
+
+  $(document).ready(function() {
+  $('.form-control').select2();
+  });
+
+
+  $(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#inspected_on span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#inspected_on').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+
+$("#location_type").change(function(){
+  var groupss= $('#location_type').val();
+  //var group=$('#location_type').val()
+    //alert(groupss)
+  //alert("heree")
+  $.ajax({
+    type:'GET',
+    url:"{% url 'search_desig_ajax' %}",
+    dataType:'json',
+    data:{
+      groupss
+    },
+    success:function (response){
+      //alert("hereeee")
+      console.log('0000000000', response)
+      //$("#designation").find('option').remove();
+      for (i=0; i<response.ins.length; i++){
+        $('#designation').append(`<option>${response.ins[i].designation}</option>`);
+        
+      }
+    }
+  });
+})
+
+
+$("#location_code").change(function(){
+  var group=$('#location_code').val()
+    //alert(group)
+  //alert("heree")
+  $.ajax({
+    type:'GET',
+    url:"{% url 'search_locat_ajax' %}",
+    dataType:'json',
+    data:{
+      group
+    },
+    success:function (response){
+      //alert("hereeee")
+      console.log(response)
+      $("#location_type").find('option').remove();
+      $('#location_type').append(`<option>All</option>`);
+      for (i=0; i<response.ins.length; i++){
+        $('#location_type').append(`<option value="${response.ins[i].rly_unit_code}">${response.ins[i].location_code}</option>`);
+        
+      }
+    }
+  });
+})
+
+
+//show data in 
+
+  function myFunction() {
+    count=0;
+    //document.getElementById("#myFunction");
+    var location_code=$('#location_code').val()
+    var location_type=$('#location_type').val()
+    var designation=$('#designation').val()
+    var dept=$('#dept').val()
+    var inspected_on=$('#inspected_on').val()
+  $.ajax({
+    type:'GET',
+    url:"{% url 'fetch_desig_ajax' %}",
+    dataType:'json',
+    data:{
+      location_code,location_type,designation,dept,inspected_on
+    },
+    success: function (response) {
+      $('#tableid tbody').empty();
+      if(count!=0)
+        {
+          var table = $('#tableid').DataTable();
+          table.destroy();
+        } 
+          count=1;
+          //myhtml = '';
+          myhtml2='';
+  
+          console.log(response,"$$$$$$$$")
+
+                    
+                    
+          for (i = 0; i <response.length; i++) {
+          console.log("@@@@@@@@@@");
+
+          myhtml2 += '<tr> <td>' + [i+1] +'</td> <td>' + response[i].inspection_note_no+'</td> <td>' + response[i].inspected_on+'</td> <td>' + response[i].dept+'</td> <td>' + response[i].division+ '</td> <td>' + response[i].zone+'</td><td><a href="/search_location_detail/'+response[i].inspection_no+'/">pdfview</a></td></tr>'
+        }
+        $('#tableid tbody').append(myhtml2);
+        $('#tableid').show();
+        $('#tableid').DataTable();                   
+  }
+    
+  });
+}
+
+
+
+</script>
+<script>
+
+
+  $(document).ready( function () {
+    
+});
+
+
+ </script>
+
+
+<script>
+  $("#check").click(function(){
+    var value = $("#check").is(':checked');
+    if(value){
+      console.log("inside value")
+      $("#search_text").show();
+    }
+    else{
+      console.log('insode else')
+      $("#search_text").hide();
+    }
+  });
+</script>
+
+
+
+{% endblock %}  
+

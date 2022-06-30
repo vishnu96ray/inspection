@@ -1,0 +1,2 @@
+Requirement already satisfied: reportlab in c:\users\hp\.virtualenvs\inspection-xuddal2v\lib\site-packages (3.6.10)
+Requirement already satisfied: pillow>=9.0.0 in c:\users\hp\.virtualenvs\inspection-xuddal2v\lib\site-packages (from reportlab) (9.1.1)

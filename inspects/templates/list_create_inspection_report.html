@@ -1,0 +1,151 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static '/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<script src="{% static '/js/popper.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/bootstrap.min.css' %}">
+
+<script src="{% static '/js/jquery-3.3.1.js' %}"></script>
+<script src="{% static '/DataTables/datatables.min.js' %}"></script>
+<script src="{% static '/js/dataTables.bootstrap4.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static '/DataTables/datatables.min.css' %}" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{% static '/js/select2.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static '/css/select2.min.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="{% static '/js/select2.min.js' %}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'js/timepicker.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static '/css/select2.min.css' %}" />
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<br>
+    
+    <style>
+      * {
+  box-sizing: border-box;
+}
+      input[type=text]
+      {
+              width: 100%;
+              padding: 12px 20px;
+              margin: 8px 0;
+              display: block;
+              /* border: 1.5px solid rgb(14, 12, 12); */
+              border-radius: 4px;
+              box-sizing: border-box;
+      }
+    
+      input[type=submit] {
+              width: 40%;
+              text-align: center;
+              background-color: #4CAF50;
+              color: rgb(15, 12, 12);
+              padding: 14px 20px;
+              margin: 8px 0;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+      }
+    
+      input[type=submit]:hover {
+              background-color: #45a049;
+              text-align: center;
+      }
+    
+      input[type=button] {
+              width: 30%;
+              text-align: center;
+              background-color: #4CAF50;
+              color: white;
+              padding: 6px 6px;
+              margin: 8px 0;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+      }
+    
+      input[type=button]:hover {
+              background-color: #45a049;
+              text-align: center;
+      }
+      /* #viewbtn{
+        margin-left:1050px;
+      } */
+    
+      .inputtag{
+        height:20px;
+      }
+    </style>
+<body>
+<h2 style="font-family: 'Times New Roman', Times, serif;">
+    <center><b>List of Inspections </b></center>
+  </h2>
+
+  <br>
+  <div class="container">
+  <form target="_blank" method="POST" class="d-inline " action = '{% url "create_inspection_form" %}'>
+        
+    {% csrf_token %}
+
+
+    <button type="submit" class="btn btn-success" id="viewbtn" style="margin-left: 950px;margin-bottom: 2em;; position: static;" ><b> Create new Inspection Report </b></input>
+    </form>
+    </div>
+
+<div class="row"  >
+<div class="row" id="row1" style="margin-left:20em ;">
+    <div class="col-md-2"  style="margin-left:2em ;">
+        <label for="Zone" >Zone</label>
+        <select class="form-control" id="zone" name="zone" class="custom-select"
+            onchange="fetch_zone();">
+            <option value="All" selected>All</option>
+            {% for z in Zone %}
+            <option value="{{z}}">{{z}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+   
+   
+<div class="col-md-3">
+    <label for="division">Division</label>
+    <select class="form-control" id="division" name="division" class="custom-select" style="max-width:100%;"
+            onchange="fetch_division();">
+
+            <option value="All" selected>All</option>
+            {% for d in division %}
+            <option value="{{d}}">{{d}}</option>
+            {% endfor %}
+
+        </select>
+    
+</div>
+<div  class="col-md-3" >
+  <label for="location">Location<span style="color:red;font-weight:bold">*</span></label>
+  <input type="text"  class="form-control"/>
+  
+</div>
+<div  class="col-sm-2s form-group" >
+<label ></label>
+<button  type="submit"  name="zone_loc_submit"  style="margin-top:2.5em;height:3em;width:6em;" class="btn btn-success btn-sm" id="insp_submit" onClick=" saveempdatafortech();popclose()">Submit</button>
+</div>
+</div></div>
+
+</body>
+
+
+
+{% endblock %}  
